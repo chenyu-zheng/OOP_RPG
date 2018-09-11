@@ -16,9 +16,13 @@ namespace OOP_RPG
             this.Monster = null;
             this.hero = hero;
             this.game = game;
+            this.AddMonster("Slime", 2, 4, 12);
+            this.AddMonster("Rat", 11, 8, 18);
             this.AddMonster("Squid", 9, 8, 20);
-            this.AddMonster("Bat", 11, 6, 17);
-            this.AddMonster("Bear", 28, 35, 150);
+            this.AddMonster("Bat", 10, 6, 17);
+            this.AddMonster("Lizard", 10, 14, 25);
+            this.AddMonster("Bear", 17, 17, 80);
+            this.AddMonster("Troll", 23, 12, 65);
             this.AddMonster("Wyvern", 180, 190, 450);
         }
         
