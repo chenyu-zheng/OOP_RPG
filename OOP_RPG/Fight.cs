@@ -8,14 +8,14 @@ namespace OOP_RPG
     {
         List<Monster> Monsters { get; set; }
         Monster Monster { get; set; }
-        public Game game { get; set; }
-        public Hero hero { get; set; }
+        public Game Game { get; set; }
+        public Hero Hero { get; set; }
         
         public Fight(Hero hero, Game game) {
             this.Monsters = new List<Monster>();
             this.Monster = null;
-            this.hero = hero;
-            this.game = game;
+            this.Hero = hero;
+            this.Game = game;
             this.AddMonster("Slime", 2, 4, 12);
             this.AddMonster("Rat", 11, 8, 18);
             this.AddMonster("Squid", 9, 8, 20);
@@ -49,12 +49,12 @@ namespace OOP_RPG
                 this.HeroTurn();
             }
             else { 
-                this.game.Main();
+                this.Game.Main();
             }
         }
         
         public void HeroTurn(){
-           var compare = hero.Strength - Monster.Defense;
+           var compare = Hero.Strength - Monster.Defense;
            int damage;
            
            if(compare <= 0) {
@@ -79,17 +79,17 @@ namespace OOP_RPG
         
         public void MonsterTurn(){
            int damage;
-           var compare = Monster.Strength - hero.Defense;
+           var compare = Monster.Strength - Hero.Defense;
            if(compare <= 0) {
                damage = 1;
-               hero.CurrentHP -= damage;
+               Hero.CurrentHP -= damage;
            }
            else{
                damage = compare;
-               hero.CurrentHP -= damage;
+               Hero.CurrentHP -= damage;
            }
            Console.WriteLine(Monster.Name + " does " + damage + " damage!");
-           if(hero.CurrentHP <= 0){
+           if(Hero.CurrentHP <= 0){
                this.Lose();
            }
            else
@@ -99,11 +99,11 @@ namespace OOP_RPG
         }
         
         public void Win() {
-            hero.Gold += Monster.Gold;
+            Hero.Gold += Monster.Gold;
             Console.WriteLine(Monster.Name + " has been defeated! You win the battle!");
             Console.WriteLine($"Your got {Monster.Gold} gold" +
                 $" from {Monster.Name}!");
-            game.Main();
+            Game.Main();
         }
         
         public void Lose() {

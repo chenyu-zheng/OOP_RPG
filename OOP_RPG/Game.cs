@@ -5,17 +5,17 @@ namespace OOP_RPG
 {
     public class Game
     {
-        public Hero hero { get; set; }
+        public Hero Hero { get; set; }
         
         public Game() {
-            this.hero = new Hero();
+            this.Hero = new Hero();
         }
             
         public void Start() {
             Console.WriteLine("Welcome hero!");
             Console.WriteLine("Please enter your name:");
-            this.hero.Name = Console.ReadLine();
-            Console.WriteLine("Hello " + hero.Name);
+            this.Hero.Name = Console.ReadLine();
+            Console.WriteLine("Hello " + Hero.Name);
             this.Main();
         }
         
@@ -40,21 +40,21 @@ namespace OOP_RPG
         }
         
         public void Stats() {
-            hero.ShowStats();
+            Hero.ShowStats();
             Console.WriteLine("Press any key to return to main menu.");
             Console.ReadKey();
             this.Main();
         }
         
         public void Inventory(){
-            hero.ShowInventory();
+            Hero.ShowInventory();
             Console.WriteLine("Press any key to return to main menu.");
             Console.ReadKey();
             this.Main();
         }
         
         public void Fight(){
-            var fight = new Fight(this.hero, this);
+            var fight = new Fight(this.Hero, this);
             fight.Start();
         }
         
