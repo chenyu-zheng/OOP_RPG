@@ -29,5 +29,12 @@ namespace OOP_RPG
             Potions.Add(new Potion("Normal Potion", 20, 30));
             Potions.Add(new Potion("Greater Potion", 50, 80));
         }
+
+        public Shop(List<Weapon> weapons, List<Armor> armors, List<Potion> potions)
+        {
+            Weapons = weapons;
+            Armors = armors;
+            Potions = potions;
+        }
     }
 }
