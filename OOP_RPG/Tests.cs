@@ -12,13 +12,13 @@ namespace OOP_RPG
                 
                 var weapon = new Weapon("Sword", 5, 1);
                 Console.WriteLine("Weapon is a " + weapon.Name + " of strength " + weapon.Strength);
-                hero.WeaponsBag.Add(weapon);
+                // hero.WeaponsBag.Add(weapon);
                 var weapon2 = new Weapon("Axe", 10, 1);
-                hero.WeaponsBag.Add(weapon2);
+                // hero.WeaponsBag.Add(weapon2);
                 
-                foreach (var item in hero.WeaponsBag) {
-                    Console.WriteLine(item.Name);
-                }
+                //foreach (var item in hero.WeaponsBag) {
+                //    Console.WriteLine(item.Name);
+                //}
             }
     }
 }
