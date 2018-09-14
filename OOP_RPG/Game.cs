@@ -23,28 +23,34 @@ namespace OOP_RPG
         
         public void Main() {
             Console.WriteLine("**************** MAIN MENU ****************");
-            Console.WriteLine("Please choose an option by entering a number.");
-            Console.WriteLine("1. View Stats");
-            Console.WriteLine("2. View Inventory");
-            Console.WriteLine("3. Shop");
-            Console.WriteLine("4. Fight Monster");
-            var input = Console.ReadLine();
-            if (input == "1") {
-                Stats();
-            }
-            else if (input == "2") {
-                Inventory();
-            }
-            else if (input == "3")
+            while (true)
             {
-                Shop.Menu();
-                Main();
-            }
-            else if (input == "4") {
-                Fight();
-            }
-            else {
-                return;
+                Console.WriteLine("Please choose an option by entering a number.");
+                Console.WriteLine("1. View Stats");
+                Console.WriteLine("2. View Inventory");
+                Console.WriteLine("3. Shop");
+                Console.WriteLine("4. Fight Monster");
+                var input = Console.ReadLine();
+                switch (input)
+                {
+                    case "":
+                        continue;
+                    case "1":
+                        Stats();
+                        break;
+                    case "2":
+                        Inventory();
+                        break;
+                    case "3":
+                        Shop.Menu();
+                        Main();
+                        break;
+                    case "4":
+                        Fight();
+                        break;
+                    default:
+                        return;
+                }
             }
         }
         

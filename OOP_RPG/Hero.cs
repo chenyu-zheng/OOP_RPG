@@ -17,6 +17,15 @@ namespace OOP_RPG
         public int Gold { get; set; }
         public List<IItem> Items { get; set; }
 
+        public int CurrentStrength
+        {
+            get { return Strength + EquippedWeapon?.Strength ?? 0; }
+        }
+        public int CurrentDefense
+        {
+            get { return Defense + EquippedArmor?.Defense ?? 0; }
+        }
+
         /*This is a Constructor.
         When we create a new object from our Hero class, the instance of this class, our hero, has:
         an empty List that has to contain instances of the Armor class,
@@ -35,63 +44,104 @@ namespace OOP_RPG
 
         //These are the Methods of our Class.
         public void ShowStats() {
-            Console.WriteLine("======== " + this.Name + " ========");
-            Console.WriteLine("Strength: " + this.Strength);
-            Console.WriteLine("Defense: " + this.Defense);
-            Console.WriteLine("Hitpoints: " + this.CurrentHP + "/" + this.OriginalHP);
+            Console.WriteLine("======== " + Name + " ========");
+            Console.WriteLine($"Strength: {CurrentStrength} (+{EquippedWeapon?.Strength ?? 0})");
+            Console.WriteLine($"Deffense: {CurrentDefense} (+{EquippedArmor?.Defense ?? 0})");
+            Console.WriteLine("Hitpoints: " + CurrentHP + "/" + OriginalHP);
+            Console.WriteLine($"Gold: { Gold }");
         }
         
         public void ShowInventory() {
+            int num = 1;
             Console.WriteLine("========  INVENTORY ========");
+            Console.WriteLine("No. | Name | Property ");
             Console.WriteLine("----- Weapons -----");
-            Items.Where(p => p is Weapon).ToList()
-                .ForEach(w => Console.WriteLine(w.Name + " of " + ((Weapon)w).Strength + " Strength"));
+            Items.Where(p => p is Weapon).Select(p => (Weapon)p).ToList()
+                .ForEach(p => Console.WriteLine($"{num++})  {p.Name}  STR+{p.Strength}  {(p == EquippedWeapon ? "E" : "")}"));
             Console.WriteLine("----- Armors -----");
-            Items.Where(p => p is Armor).ToList()
-                .ForEach(w => Console.WriteLine(w.Name + " of " + ((Armor)w).Defense + " Defense"));
+            Items.Where(p => p is Armor).Select(p => (Armor)p).ToList()
+                .ForEach(p => Console.WriteLine($"{num++})  {p.Name}  DEF+{p.Defense}  {(p == EquippedArmor ? "E" : "")}"));
             Console.WriteLine("----- Potions -----");
-            Items.Where(p => p is Potion).ToList()
-                .ForEach(w => Console.WriteLine(w.Name + " of " + ((Potion)w).HP + " HP"));
-            Console.WriteLine($"Gold: {Gold}");
+            Items.Where(p => p is Potion).Select(p => (Potion)p).ToList()
+                .ForEach(p => Console.WriteLine($"{num++})  {p.Name}  HP:{p.HP}"));
+            Console.WriteLine($"Enter an item number to use:");
 
+            string input = Console.ReadLine();
+            if (Int32.TryParse(input, out int itemNumber))
+            {
+                UseInventoryItem(itemNumber - 1);
+            }
         }
 
-        public void Equip(int itemIndex)
+        public void UseInventoryItem(int itemIndex)
         {
-            IItem item = Items[itemIndex];
-            if (item is Weapon)
+            if (Items[itemIndex] is Potion p)
             {
-                EquippedWeapon = (Weapon)Items[itemIndex];
-            }
-            else if (item is Armor)
-            {
-                EquippedArmor = (Armor)Items[itemIndex];
+                UsePotion(p);
             }
             else
             {
-                Console.WriteLine($"{item} is not equippable!");
+                Equip(Items[itemIndex]);
+            }
+        }
+
+        public void UsePotion(Potion potion)
+        {
+            if (CurrentHP == OriginalHP)
+            {
+                Console.WriteLine($"Your HP is full.");
+            }
+            int r = potion.HP < OriginalHP - CurrentHP ? potion.HP : OriginalHP - CurrentHP;
+            RemoveItem(potion);
+            CurrentHP += r;
+            Console.WriteLine($"{potion.Name} restored you {r} HP.");
+        }
+
+        public void Equip(IItem item)
+        {
+            if (item is Weapon w)
+            {
+                EquippedWeapon = w;
+                Console.WriteLine($"{item.Name} is equiped");
+            }
+            else if (item is Armor a)
+            {
+                EquippedArmor = a;
+                Console.WriteLine($"{item.Name} is equiped");
+            }
+            else
+            {
+                Console.WriteLine($"{item.Name} is not equippable!");
             }
         }
 
         public void AddItem(IItem item)
         {
-            if (item is Weapon)
+            if (item is Weapon w)
             {
-                Items.Add((Weapon)item);
-            } 
-            else if (item is Armor)
-            {
-                Items.Add((Armor)item);
+                Items.Add(new Weapon(w.Name, w.Strength, w.OriginalValue));
             }
-            else if (item is Potion)
+            else if (item is Armor a)
             {
-                Items.Add((Potion)item);
+                Items.Add(new Armor(a.Name, a.Defense, a.OriginalValue));
+            }
+            else if (item is Potion p)
+            {
+                Items.Add(new Potion(p.Name, p.HP, p.OriginalValue));
             }
         }
         
         public void RemoveItem(IItem item)
         {
             Items.Remove(item);
+            if (item == EquippedWeapon)
+            {
+                EquippedWeapon = null;
+            }
+            if (item == EquippedArmor)
+            {
+                EquippedArmor = null;
+            }
         }
     }
 }

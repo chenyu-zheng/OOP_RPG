@@ -16,18 +16,18 @@ namespace OOP_RPG
             this.Monster = null;
             this.Hero = hero;
             this.Game = game;
-            this.AddMonster("Slime", 2, 4, 12);
-            this.AddMonster("Rat", 11, 8, 18);
-            this.AddMonster("Squid", 9, 8, 20);
-            this.AddMonster("Bat", 10, 6, 17);
-            this.AddMonster("Lizard", 10, 14, 25);
-            this.AddMonster("Bear", 17, 17, 80);
-            this.AddMonster("Troll", 23, 12, 65);
-            this.AddMonster("Wyvern", 180, 190, 450);
+            this.AddMonster("Slime", 2, 4, 12, 3);
+            this.AddMonster("Rat", 11, 8, 18, 5);
+            this.AddMonster("Squid", 9, 8, 20, 5);
+            this.AddMonster("Bat", 10, 6, 17, 5);
+            this.AddMonster("Lizard", 10, 14, 25, 12);
+            this.AddMonster("Bear", 17, 17, 80, 50);
+            this.AddMonster("Troll", 23, 12, 65, 50);
+            this.AddMonster("Wyvern", 180, 190, 450, 1000);
         }
         
-        public void AddMonster(string name, int strength, int defense, int hp) {
-            var monster = new Monster(name, strength, defense, hp);
+        public void AddMonster(string name, int strength, int defense, int hp, int gold) {
+            var monster = new Monster(name, strength, defense, hp, gold);
             this.Monsters.Add(monster);
         }
         
@@ -43,7 +43,7 @@ namespace OOP_RPG
             }
             Console.WriteLine("You've encountered a " + Monster.Name + "! " + Monster.Strength + " Strength/" + Monster.Defense + " Defense/" + 
             Monster.CurrentHP + " HP. What will you do?");
-            Console.WriteLine("1. Fight");
+            Console.WriteLine("1. Fight *");
             var input = Console.ReadLine();
             if (input == "1" || input == "") {
                 this.HeroTurn();
@@ -54,7 +54,7 @@ namespace OOP_RPG
         }
         
         public void HeroTurn(){
-           var compare = Hero.Strength - Monster.Defense;
+           var compare = Hero.CurrentStrength - Monster.Defense;
            int damage;
            
            if(compare <= 0) {
