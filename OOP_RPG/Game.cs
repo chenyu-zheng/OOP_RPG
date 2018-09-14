@@ -23,7 +23,7 @@ namespace OOP_RPG
         
         public void Main() {
             Console.WriteLine("**************** MAIN MENU ****************");
-            while (true)
+            while (Hero.HP > 0)
             {
                 Console.WriteLine("Please choose an option by entering a number.");
                 Console.WriteLine("1. View Stats");
@@ -43,7 +43,6 @@ namespace OOP_RPG
                         break;
                     case "3":
                         Shop.Menu();
-                        Main();
                         break;
                     case "4":
                         Fight();

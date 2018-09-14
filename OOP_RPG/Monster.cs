@@ -3,22 +3,18 @@ using System.Collections.Generic;
 
 namespace OOP_RPG
 {
-    public class Monster
+    public class Monster : Unit
     {
-        public string Name { get; set; }
-        public int Strength { get; set; }
-        public int Defense { get; set; }
-        public int OriginalHP { get; set; }
-        public int CurrentHP { get; set; }
-        public int Gold { get; set; }
+        
 
-        public Monster(string name, int strength, int defense, int hp, int gold = 0)
+        public Monster(string name, int strength, int defense, int hp, int speed, int gold = 0)
         {
             Name = name;
-            Strength = strength;
-            Defense = defense;
+            OriginalStrength = strength;
+            OriginalDefense = defense;
             OriginalHP = hp;
-            CurrentHP = hp;
+            HP = hp;
+            Speed = speed;
             Gold = gold;
         }
     }

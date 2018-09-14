@@ -4,50 +4,27 @@ using System.Linq;
 
 namespace OOP_RPG
 {
-    public class Hero
+    public class Hero : Unit
     {
-        // These are the Properties of our Class.
-        public string Name { get; set; }
-        public int Strength { get; set; }
-        public int Defense { get; set; }
-        public int OriginalHP { get; set; }
-        public int CurrentHP { get; set; }
-        public Weapon EquippedWeapon { get; set; }
-        public Armor EquippedArmor { get; set; }
-        public int Gold { get; set; }
         public List<IItem> Items { get; set; }
 
-        public int CurrentStrength
-        {
-            get { return Strength + EquippedWeapon?.Strength ?? 0; }
-        }
-        public int CurrentDefense
-        {
-            get { return Defense + EquippedArmor?.Defense ?? 0; }
-        }
-
-        /*This is a Constructor.
-        When we create a new object from our Hero class, the instance of this class, our hero, has:
-        an empty List that has to contain instances of the Armor class,
-        an empty List that has to contain instance of the Weapon class,
-        stats of the "int" data type, including an intial strength and defense,
-        original hitpoints that are going to be the same as the current hitpoints.
-        */
         public Hero() {
             Items = new List<IItem>();
-            Strength = 10;
-            Defense = 10;
+            OriginalStrength = 10;
+            OriginalDefense = 10;
             OriginalHP = 30;
-            CurrentHP = 30;
+            HP = 30;
+            Speed = 10;
             Gold = 50;
         }
 
         //These are the Methods of our Class.
         public void ShowStats() {
             Console.WriteLine("======== " + Name + " ========");
-            Console.WriteLine($"Strength: {CurrentStrength} (+{EquippedWeapon?.Strength ?? 0})");
-            Console.WriteLine($"Deffense: {CurrentDefense} (+{EquippedArmor?.Defense ?? 0})");
-            Console.WriteLine("Hitpoints: " + CurrentHP + "/" + OriginalHP);
+            Console.WriteLine($"Strength: {Strength} (+{EquippedWeapon?.Strength ?? 0})");
+            Console.WriteLine($"Deffense: {Defense} (+{EquippedArmor?.Defense ?? 0})");
+            Console.WriteLine("Hitpoints: " + HP + "/" + OriginalHP);
+            Console.WriteLine($"Speed: { Speed }");
             Console.WriteLine($"Gold: { Gold }");
         }
         
@@ -87,13 +64,13 @@ namespace OOP_RPG
 
         public void UsePotion(Potion potion)
         {
-            if (CurrentHP == OriginalHP)
+            if (HP == OriginalHP)
             {
                 Console.WriteLine($"Your HP is full.");
             }
-            int r = potion.HP < OriginalHP - CurrentHP ? potion.HP : OriginalHP - CurrentHP;
+            int r = potion.HP < OriginalHP - HP ? potion.HP : OriginalHP - HP;
             RemoveItem(potion);
-            CurrentHP += r;
+            HP += r;
             Console.WriteLine($"{potion.Name} restored you {r} HP.");
         }
 

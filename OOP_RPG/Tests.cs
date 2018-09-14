@@ -6,9 +6,9 @@ namespace OOP_RPG
             public static void Run() {
                 
                 var hero = new Hero();
-                hero.Strength = 55;
+                hero.OriginalStrength = 55;
                 
-                Console.WriteLine("Hero's strength: " + hero.CurrentStrength);
+                Console.WriteLine("Hero's strength: " + hero.Strength);
                 
                 var weapon = new Weapon("Sword", 5, 1);
                 Console.WriteLine("Weapon is a " + weapon.Name + " of strength " + weapon.Strength);
