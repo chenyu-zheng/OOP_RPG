@@ -22,9 +22,10 @@ namespace OOP_RPG
         }
         
         public void Main() {
-            Console.WriteLine("**************** MAIN MENU ****************");
             while (Hero.HP > 0)
             {
+                Console.WriteLine();
+                Console.WriteLine("**************** MAIN MENU ****************");
                 Console.WriteLine("Please choose an option by entering a number.");
                 Console.WriteLine("1. View Stats");
                 Console.WriteLine("2. View Inventory");
@@ -55,16 +56,10 @@ namespace OOP_RPG
         
         public void Stats() {
             Hero.ShowStats();
-            Console.WriteLine("Press any key to return to main menu.");
-            Console.ReadKey();
-            Main();
         }
         
         public void Inventory(){
             Hero.ShowInventory();
-            Console.WriteLine("Press any key to return to main menu.");
-            Console.ReadKey();
-            Main();
         }
         
         public void Fight(){

@@ -41,8 +41,10 @@ namespace OOP_RPG
             {
                 Monster = randomMonster;
             }
+            Console.WriteLine();
+            Console.WriteLine("**************** BATTLE ****************");
             Console.WriteLine("You've encountered a " + Monster.Name + "! ");
-            while (true)
+            while (Hero.HP > 0 && Monster.HP > 0)
             {
                 Console.WriteLine($"[{Monster.Name}] STR: {Monster.Strength} | DEF: {Monster.Defense} | HP: {Monster.HP} / {Monster.OriginalHP} | SPD: {Monster.Speed}");
                 Console.WriteLine("What will you do?");
@@ -55,7 +57,6 @@ namespace OOP_RPG
                 if (input == "1" || input == "")
                 {
                     this.HeroTurn();
-                    return;
                 }
                 else if (Hero.Speed > Monster.Speed && input == "2")
                 {
@@ -109,10 +110,6 @@ namespace OOP_RPG
            Console.WriteLine(Monster.Name + " does " + damage + " damage!");
            if(Hero.HP <= 0){
                this.Lose();
-           }
-           else
-           {
-               this.Start();
            }
         }
         

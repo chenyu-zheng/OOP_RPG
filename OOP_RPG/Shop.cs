@@ -41,9 +41,10 @@ namespace OOP_RPG
 
         public void Menu()
         {
-            Console.WriteLine("**************** SHOP ****************");
             while (true)
             {
+                Console.WriteLine();
+                Console.WriteLine("**************** SHOP ****************");
                 Console.WriteLine("Welcome! What would you like to do?");
                 Console.WriteLine("1. Buy");
                 Console.WriteLine("2. Sell");
