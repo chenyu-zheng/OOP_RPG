@@ -52,6 +52,11 @@ namespace OOP_RPG
 
         public void UseInventoryItem(int itemIndex)
         {
+            if (itemIndex >= Items.Count)
+            {
+                Console.WriteLine($"Item number does not exist!");
+                return;
+            }
             if (Items[itemIndex] is Potion p)
             {
                 UsePotion(p);
