@@ -91,7 +91,7 @@ namespace OOP_RPG
 
         public void Buy(int itemNumber)
         {
-            if (itemNumber >= Items.Count)
+            if (itemNumber >= Items.Count || itemNumber < 0)
             {
                 Console.WriteLine($"Item number does not exist!");
                 return;
@@ -133,7 +133,7 @@ namespace OOP_RPG
 
         public void Sell(int itemNumber)
         {
-            if (itemNumber >= Hero.Items.Count)
+            if (itemNumber >= Hero.Items.Count || itemNumber < 0)
             {
                 Console.WriteLine($"Item number does not exist!");
                 return;
